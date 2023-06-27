@@ -1,0 +1,48 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Description": "Creat my first VPC,SUBNET,INSTANCE",
+  "Resources" : {
+    "ProdVPC":{
+      "Type" : "AWS::EC2::VPC",
+      "Properties" : {
+        "CidrBlock" :"10.100.0.0/16"
+    }
+  },
+    "publicsubnet": {
+      "Type": "AWS::EC2::Subnet",
+  "Properties": {
+     "VpcId" :{
+       "Ref" : "ProdVPC"
+     },
+    "CiderBlock" : "10.100.0.1/24"
+  }
+    },
+    "PrivateSubnet":{
+      "Type": "AWS::EC2::Subnet",
+  "Properties": {
+     "VpcId" :{
+       "Ref" : "ProdVPC"
+    },
+    "CiderBlock" :"10.100.0.0/24"
+  }
+    },
+    "EC2instance":{
+      "Type" : "AWS::EC2::Instance",
+  "Properties" : {
+    "ImageId" : "ami-0b1217c6bff20e276",
+     "SubnetId" :{
+       "Ref":"PrivateSubnet"
+     },
+     "InstanceType" : "t2.medium",
+     "KeyName" :"singapur",
+     "Tags" :[
+       {
+         "Key": "Name",
+         "Value": "EC2instance"
+       }
+     ]
+    }
+      
+}
+  }
+}
